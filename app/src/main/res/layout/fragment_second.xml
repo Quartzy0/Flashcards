@@ -14,6 +14,7 @@
         android:layout_marginBottom="24dp"
         android:clickable="true"
         android:src="@android:drawable/ic_menu_add"
+        app:backgroundTint="@color/material_dynamic_primary60"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
@@ -25,6 +26,7 @@
         android:layout_marginBottom="24dp"
         android:clickable="true"
         android:src="@android:drawable/ic_media_play"
+        app:backgroundTint="@color/material_dynamic_primary60"
         app:layout_constraintBottom_toTopOf="@id/flashcards_add"
         app:layout_constraintRight_toRightOf="parent" />
 

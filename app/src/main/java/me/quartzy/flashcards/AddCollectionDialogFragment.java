@@ -29,13 +29,16 @@ public class AddCollectionDialogFragment extends DialogFragment {
 
     public interface AddCollectionDialogListener{
         public void collectionAdded(DialogFragment dialog, Collection collection);
+        public void collectionChanged(DialogFragment dialogFragment, Collection collection);
     }
     AddCollectionDialogListener listener;
+    Collection collection;
     public DialogAddCollectionBinding binding;
 
-    public AddCollectionDialogFragment(AddCollectionDialogListener listener) {
+    public AddCollectionDialogFragment(AddCollectionDialogListener listener, Collection collection) {
         super();
         this.listener = listener;
+        this.collection = collection;
     }
 
     @NonNull
@@ -45,20 +48,34 @@ public class AddCollectionDialogFragment extends DialogFragment {
         LayoutInflater inflater = requireActivity().getLayoutInflater();
 
         binding = DialogAddCollectionBinding.inflate(inflater);
-        builder.setView(binding.getRoot())
-                .setPositiveButton("Add", (dialog, which) -> {
-                    Collection newCollection = new Collection();
-                    newCollection.name = binding.collectionNameInput.getText().toString();
-                    newCollection.cards = 0;
-                    newCollection.uid = MainActivity.random.nextLong();
 
-                    CardsDao cardsDao = MainActivity.db.cardsDao();
-                    cardsDao.insertCollection(newCollection);
-                    if (listener != null) listener.collectionAdded(this, newCollection);
+        builder.setView(binding.getRoot()).setNegativeButton("Cancel", (dialog, which) -> {
+            AddCollectionDialogFragment.this.getDialog().cancel();
+        });
+        if (this.collection == null) {
+            builder.setPositiveButton("Add", (dialog, which) -> {
+                Collection newCollection = new Collection();
+                newCollection.name = binding.collectionNameInput.getText().toString();
+                newCollection.description = binding.collectionDescriptionInput.getText().toString();
+                newCollection.cards = 0;
+                newCollection.uid = MainActivity.random.nextLong();
 
-                }).setNegativeButton("Cancel", (dialog, which) -> {
-                    AddCollectionDialogFragment.this.getDialog().cancel();
-                });
+                CardsDao cardsDao = MainActivity.db.cardsDao();
+                cardsDao.insertCollection(newCollection);
+                if (listener != null) listener.collectionAdded(this, newCollection);
+            });
+        }else {
+            binding.collectionNameInput.setText(collection.name);
+            binding.collectionDescriptionInput.setText(collection.description);
+            builder.setPositiveButton("Save", (dialog, which) -> {
+                collection.name = binding.collectionNameInput.getText().toString();
+                collection.description = binding.collectionDescriptionInput.getText().toString();
+
+                CardsDao cardsDao = MainActivity.db.cardsDao();
+                cardsDao.insertCollection(collection);
+                if (listener != null) listener.collectionChanged(this, collection);
+            });
+        }
         return builder.create();
     }
 }

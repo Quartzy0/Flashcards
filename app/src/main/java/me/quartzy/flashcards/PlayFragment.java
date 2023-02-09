@@ -63,7 +63,23 @@ public class PlayFragment extends Fragment {
                 animation.play(left).before(right).before(left2);
                 animation.start();
             }else{
-                binding.card.setText(cards[cardId].value2);
+                ObjectAnimator p1 = ObjectAnimator.ofFloat(binding.card, "rotationY", 0f, -90f);
+                p1.setDuration(150);
+                ObjectAnimator p2 = ObjectAnimator.ofFloat(binding.card, "rotationY", -90f, 90f);
+                p2.setDuration(0);
+                p2.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        binding.card.setText(cards[cardId].value2);
+                    }
+                });
+                ObjectAnimator p3 = ObjectAnimator.ofFloat(binding.card, "rotationY", 90f, 0f);
+                p3.setDuration(150);
+                AnimatorSet animation = new AnimatorSet();
+                animation.play(p1).before(p2).before(p3);
+                animation.start();
+
+
                 val2 = true;
             }
         });

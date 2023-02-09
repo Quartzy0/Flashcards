@@ -6,6 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".CollectionsFragment">
 
+    <TextView
+        android:id="@+id/suggestion_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="-32dp"
+        android:text="Try importing some collections!"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/suggestion_arrow"
+        app:layout_constraintRight_toLeftOf="@id/suggestion_arrow" />
+
+    <ImageView
+        android:id="@+id/suggestion_arrow"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:rotation="45"
+        android:visibility="gone"
+        android:src="@drawable/baseline_arrow_right_alt_24"
+        app:layout_constraintBottom_toTopOf="@id/collections_import"
+        app:layout_constraintRight_toLeftOf="@id/collections_import" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/collections_add"
         android:layout_width="wrap_content"
@@ -14,16 +34,30 @@
         android:layout_marginBottom="24dp"
         android:clickable="true"
         android:src="@android:drawable/ic_menu_add"
+        app:backgroundTint="@color/material_dynamic_primary60"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
-    <ListView
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/collections_import"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="24dp"
+        android:clickable="true"
+        android:src="@android:drawable/ic_menu_sort_by_size"
+        app:backgroundTint="@color/material_dynamic_primary60"
+        app:layout_constraintBottom_toTopOf="@id/collections_add"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/collections_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

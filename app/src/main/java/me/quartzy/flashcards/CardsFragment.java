@@ -98,4 +98,16 @@ public class CardsFragment extends Fragment implements AddFlashcardDialogFragmen
         CardsDao cardsDao = MainActivity.db.cardsDao();
         cardsDao.decrementCardCount(card.collection_uid);
     }
+
+    @Override
+    public void flashcardEdited(DialogFragment dialog, Card card) {
+        CardsAdapter adapter = (CardsAdapter) binding.flashcardsList.getAdapter();
+        for (int i = 0; i < adapter.data.size(); i++) {
+            if (adapter.data.get(i).uid == card.uid){
+                adapter.data.set(i, card);
+                break;
+            }
+        }
+        adapter.notifyDataSetChanged();
+    }
 }

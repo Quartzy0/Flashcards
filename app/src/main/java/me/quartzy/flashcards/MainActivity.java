@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.navigation.NavController;
@@ -11,6 +12,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.room.Room;
+import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import me.quartzy.flashcards.database.Card;
 import me.quartzy.flashcards.database.CardsDao;
@@ -38,10 +41,20 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
+    static final Migration MIGRATION_1_2 = new Migration(1,2) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE collection ADD COLUMN description TEXT");
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        db = Room.databaseBuilder(getApplicationContext(), CardsDatabase.class, "cards-database").build();
+
+        db = Room.databaseBuilder(getApplicationContext(), CardsDatabase.class, "cards-database").addMigrations(MIGRATION_1_2).build();
+
+
         SharedPreferences preferences = getPreferences(MODE_PRIVATE);
         if (!preferences.getBoolean("databasePopulated", false)){
             SharedPreferences.Editor edit = preferences.edit();
@@ -49,41 +62,9 @@ public class MainActivity extends AppCompatActivity {
             edit.apply();
             CardsDao cardsDao = db.cardsDao();
             try {
-                BufferedInputStream stream = new BufferedInputStream(getAssets().open("cards-prepackaged.csv", AssetManager.ACCESS_BUFFER));
-                BufferedReader br = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
-                List<Card> cards = new ArrayList<>();
-                String line;
-                while ((line = br.readLine()) != null){
-                    String[] split = line.split(",", 4);
-                    Card card = new Card();
-                    card.uid = Integer.parseInt(split[0]);
-                    card.collection_uid = Integer.parseInt(split[1]);
-                    card.value2 = split[2];
-                    card.value1 = split[3];
-                    cards.add(card);
-                }
-                br.close();
-                cardsDao.insertCards(cards);
+                Importer.import_collection(getAssets().open("french-basic.csv", AssetManager.ACCESS_BUFFER), cardsDao);
+                Importer.import_collection(getAssets().open("french-basic1.csv", AssetManager.ACCESS_BUFFER), cardsDao);
             } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-            try{
-                BufferedInputStream stream = new BufferedInputStream(getAssets().open("collections-prepackaged.csv", AssetManager.ACCESS_BUFFER));
-                BufferedReader br = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
-                List<Collection> collections = new ArrayList<>();
-                String line;
-                while ((line = br.readLine()) != null){
-                    String[] split = line.split(",", 3);
-                    Collection collection = new Collection();
-                    collection.uid = Integer.parseInt(split[0]);
-                    collection.name = split[1];
-                    collection.cards = Integer.parseInt(split[2]);
-                    collections.add(collection);
-                }
-                br.close();
-                cardsDao.insertCollections(collections);
-            }catch (IOException e){
                 throw new RuntimeException(e);
             }
         }

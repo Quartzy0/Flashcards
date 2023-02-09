@@ -19,6 +19,7 @@ public class AddFlashcardDialogFragment extends DialogFragment {
     public interface AddFlashcardDialogListener{
         public void flashcardAdded(DialogFragment dialog, Card card);
         public void flashcardRemoved(DialogFragment dialog, Card card);
+        public void flashcardEdited(DialogFragment dialog, Card card);
     }
 
     AddFlashcardDialogListener listener;
@@ -46,9 +47,11 @@ public class AddFlashcardDialogFragment extends DialogFragment {
             card.value2 = binding.input2.getText().toString();
             if (card.uid == -1){
                 card.uid = MainActivity.random.nextLong();
+                if (listener != null) listener.flashcardAdded(this, card);
+            }else{
+                if (listener != null) listener.flashcardEdited(this, card);
             }
             cardsDao.insertCard(card);
-            if (listener != null) listener.flashcardAdded(this, card);
         }).setNeutralButton("Cancel", (dialog, which) -> {
 
         });

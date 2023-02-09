@@ -19,10 +19,10 @@ public interface CardsDao {
     @Query("SELECT * FROM collection")
     ListenableFuture<List<Collection>> getAllCollection();
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     ListenableFuture<Long> insertCollection(Collection collections);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     ListenableFuture<List<Long>> insertCollections(List<Collection> collections);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
