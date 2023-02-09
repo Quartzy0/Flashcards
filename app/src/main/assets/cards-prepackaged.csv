@@ -1,0 +1,115 @@
+1,3,Bonsoir,Good evening
+2,3,Bonne nuit,Good night
+3,3,Salut,Hi/ Bye
+4,3,Au revoir,Goodbye
+5,3,S'il vous plaît,Please
+6,3,Merci (beaucoup),Thank you (very much)
+7,3,De rien./ Je vous en prie.,You' re welcome
+8,3,Bienvenu(e).,Welcome.
+9,3,A tout à l' heure/ A plus tard.,See you later.
+10,3,A bientôt.,See you soon.
+11,3,A demain.,See you tomorrow.
+12,3,Désolé (e)!,Sorry!
+13,3,Pardonnez-moi!,Excuse me!
+14,3,Allons-y!,Let's go!
+15,3,Comment allez-vous?,How are you? (fml)
+16,3,Ça va?,How are you? (infml)/ I'm fine. (infml)
+17,3,Très bien/ mal/ pas mal.,Very good/ bad/ not bad.
+18,3,Je vais bien.,I'm fine.
+19,3,Comment vous appelez- vous?,What's your name? (fml)
+20,3,Tu t'appeles comment?,What's your name? (infml)
+21,3,Je m' appelle...,My name is ...
+22,3,Enchanté(e).,Nice to meet you.
+23,3,Vous êtes d'où?,Where are you from? (fml)
+24,3,Tu et d'où?,Where are you from? (infml)
+25,3,Je suis de...,I am from...
+26,3,Où habitez- vous?,Where do you live? (fml)
+27,3,Tu habites où?,Where do you live? (infml)
+28,3,J' habite à ...,I live in ...
+29,3,Quel âge avez- vous?,How old are you? (fml)
+30,3,Tu as quel âge?,How old are you? (infml)
+31,3,A vos souhaits! / A tes souhaits!,Bless you! (formal / informal)
+32,3,C'est à vous! / C'est à toi!,It's your turn! (formal / informal)
+33,3,Félicitations!,Congratulations!
+34,3,Ce n'est pas grave.,It's no problem. / It's alright.
+35,3,J'ai oublié.,I forgot.
+36,3,Bonne chance!,Good luck!
+37,3,Je dois y aller.,I must go.
+38,3,Je m'ennuie.,I'm bored.
+39,3,Ça m'est égal.,I don't care.
+40,3,Ne vous en faites pas. / Ne t'en fais pas.,Don't worry (formal / informal)
+41,3,J'ai faim / soif.,I'm hungry / thirsty.
+42,3,Je suis fatigué(e) / malade.,I'm tired / sick.
+43,3,J'ai chaud / froid.,I'm hot / cold.
+44,3,Je n'ai aucune idée.,I have no idea.
+45,3,Qu'est-ce qui se passe?,What's happening?
+46,3,Ça ne fait rien.,It doesn't matter.
+47,3,Comment dit-on ____ en français?,How do you say ____ in French?
+48,3,Qu'est-ce que c'est que ça?,What is that?
+49,3,Qu'est-ce qu'il y a?,What's the matter?
+50,3,Où est ... / Où sont ... ?,Where is ... / Where are ... ?
+51,3,Voici / Voilà,Here is... / Here it is.
+52,3,Il y a .../ Il y avait...,There is / are... / There was / were...
+53,3,Pouvez-vous m'aider? / Tu peux m'aider?,Can you help me? (formal / informal)
+54,3,Comment?,What? Pardon?
+55,3,Comprenez-vous? / Tu comprends?,Do you understand? (formal / informal)
+56,3,Bien sûr.,Of course.
+57,3,Je (ne) comprends (pas).,I (don't) understand.
+58,3,Je (ne) sais (pas).,I (don't) know.
+59,3,Je (ne) parle (pas)...,I (don't) speak...
+60,3,Tu parles anglais ?,Do you speak English? (informal)
+61,3,Parlez-vous français ?,Do you speak French? (formal)
+62,3,un garcon,boy
+63,3,une fille,girl
+64,3,un home,man
+65,3,une femme,woman
+66,3,une amie/ un ami,friend (fem)/ friend (masc)
+67,3,presque,almost
+68,3,en retard,late
+69,3,aussi,"also, too"
+70,3,d'habitude,usually
+71,3,quelquefois,sometimes
+72,3,souvent,often
+73,3,toujours,always
+74,3,il y a,There is/are
+75,3,le chat,cat
+76,3,le chien,dog
+77,3,le papier,paper
+78,3,le stylo,pen
+79,3,le crayon,pencil
+80,3,le livre,book
+81,3,pas mal,not bad
+82,3,encore,again
+83,3,"comme ci, comme ça",so so
+84,3,sauf,except
+85,3,surtout,especially
+86,3,maintenant,now
+87,3,mais,but
+88,3,et,and
+89,3,c'est,It's / That's
+90,4,Bonjour,Hello/Good morning
+91,4,Au revoir,Goodbye
+92,4,Oui,Yes
+93,4,Non,No
+94,4,Merci, Thank you
+95,4,Merci beaucoup, Thank you very much
+96,4,Fille,Girl
+97,4,Homme,Man
+98,4,Amour,Love
+99,4,Français,French
+100,4,S’il vous plaît,Please
+101,4,Bonsoir,Good evening
+102,4,Bonne Nuit,Good night
+103,4,Excusez-moi,Excuse me
+104,4,Je vous en prie,You’re welcome
+105,4,Temps,Time
+106,4,Jour,Day
+107,4,Monde,World
+108,4,Monsieur,Mister
+109,4,Raison,Reason
+110,4,Mademoiselle,Miss
+111,4,Madame,Woman
+112,4,Beau,Handsome
+113,4,Chat,Cat
+114,4,Chien,Dog
+115,4,Fort,Strong
