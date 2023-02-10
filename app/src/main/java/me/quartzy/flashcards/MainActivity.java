@@ -21,6 +21,8 @@ import me.quartzy.flashcards.database.CardsDatabase;
 import me.quartzy.flashcards.database.Collection;
 import me.quartzy.flashcards.databinding.ActivityMainBinding;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -52,22 +54,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Importer.handler = new Handler(Looper.getMainLooper());
         db = Room.databaseBuilder(getApplicationContext(), CardsDatabase.class, "cards-database").addMigrations(MIGRATION_1_2).build();
 
-
-        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
-        if (!preferences.getBoolean("databasePopulated", false)){
-            SharedPreferences.Editor edit = preferences.edit();
-            edit.putBoolean("databasePopulated", true);
-            edit.apply();
-            CardsDao cardsDao = db.cardsDao();
-            try {
-                Importer.import_collection(getAssets().open("french-basic.csv", AssetManager.ACCESS_BUFFER), cardsDao);
-                Importer.import_collection(getAssets().open("french-basic1.csv", AssetManager.ACCESS_BUFFER), cardsDao);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
         random = new Random();
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());

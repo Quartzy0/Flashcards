@@ -3,7 +3,25 @@ plugins {
     id 'androidx.navigation.safeargs'
 }
 
+def keystorePropertiesFile = rootProject.file("keystore.properties");
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
+    signingConfigs {
+        debug {
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+        }
+        relese {
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+        }
+    }
     namespace 'me.quartzy.flashcards'
     compileSdk 33
 
@@ -21,6 +39,7 @@ android {
                 arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }
+        signingConfig signingConfigs.relese
     }
 
     buildTypes {

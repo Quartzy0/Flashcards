@@ -3,6 +3,8 @@ package me.quartzy.flashcards;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.google.common.util.concurrent.MoreExecutors;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,6 +16,7 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -23,10 +26,10 @@ import me.quartzy.flashcards.database.Collection;
 
 public class Importer {
 
-    private static Handler handler;
+    public static Handler handler;
     private static ExecutorService executor;
 
-    public static Collection import_collection(BufferedReader br, CardsDao dao) throws IOException {
+    public static Collection import_collection(BufferedReader br, CardsDao dao) throws IOException, ExecutionException, InterruptedException {
         String line = br.readLine();
         String[] split = line.split("\\|", 3);
         Collection collection = new Collection();
@@ -49,12 +52,12 @@ public class Importer {
             cards.add(card);
         }
         br.close();
-        dao.insertCollection(collection);
-        dao.insertCards(cards);
+        dao.insertCollection(collection).get();
+        dao.insertCards(cards).get();
         return collection;
     }
 
-    public static Collection import_collection(InputStream ios, CardsDao dao) throws IOException {
+    public static Collection import_collection(InputStream ios, CardsDao dao) throws IOException, ExecutionException, InterruptedException {
         return import_collection(new BufferedReader(new InputStreamReader(new BufferedInputStream(ios))), dao);
     }
 
@@ -81,6 +84,10 @@ public class Importer {
 
                 processedListener.onProcessed(import_collection(conn.getInputStream(), dao), handler);
             }catch (IOException e){
+                throw new RuntimeException(e);
+            } catch (ExecutionException e) {
+                throw new RuntimeException(e);
+            } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         };

@@ -65,7 +65,7 @@ public class CardsFragment extends Fragment implements AddFlashcardDialogFragmen
 
         CardsDao cardsDao = MainActivity.db.cardsDao();
         ListenableFuture<List<Card>> cardsByCollection = cardsDao.getCardsByCollection(collection_uid);
-        cardsByCollection.addListener(() -> {
+        cardsByCollection.addListener(() -> Importer.handler.post(() -> {
             try {
                 ((CardsAdapter)binding.flashcardsList.getAdapter()).data = cardsByCollection.get();
                 ((CardsAdapter)binding.flashcardsList.getAdapter()).notifyDataSetChanged();
@@ -74,7 +74,7 @@ public class CardsFragment extends Fragment implements AddFlashcardDialogFragmen
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-        }, MoreExecutors.directExecutor());
+        }), MoreExecutors.directExecutor());
     }
 
     @Override

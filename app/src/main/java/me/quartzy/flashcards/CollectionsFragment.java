@@ -51,7 +51,7 @@ public class CollectionsFragment extends Fragment implements AddCollectionDialog
 
         CardsDao cardsDao = MainActivity.db.cardsDao();
         ListenableFuture<List<Collection>> allCollection = cardsDao.getAllCollection();
-        allCollection.addListener(() -> {
+        allCollection.addListener(() -> Importer.handler.post(() -> {
             try {
                 List<Collection> collections = allCollection.get();
                 ((CollectionsAdapter) binding.collectionsList.getAdapter()).data = collections;
@@ -61,7 +61,7 @@ public class CollectionsFragment extends Fragment implements AddCollectionDialog
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-        }, MoreExecutors.directExecutor());
+        }), MoreExecutors.directExecutor());
     }
 
     @Override
